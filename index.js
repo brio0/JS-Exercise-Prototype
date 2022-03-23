@@ -42,9 +42,43 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-  
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
+Person.prototype.eat = function (edible) {
+  if (this.stomach.length < 10) {
+    this.stomach.push(edible)
+  }
+}
+Person.prototype.poop = function () {
+  this.stomach = [];
+}
+Person.prototype.toString = function () {
+  return `${this.name}, ${this.age}`
+}
+
+const john = new Person('John', 41);
+
+console.log(john.toString());
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+john.poop();
+john.eat('chicken');
+john.eat('chicken');
+john.eat('chicken');
+
+
+
+console.log(john.stomach);
 
 
 
@@ -68,9 +102,26 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 }
+
+Car.prototype.fill = function (gallons) {
+  this.tank = this.tank + gallons;
+}
+
+Car.prototype.drive = function (distance) {
+  this.odometer = odometer + distance;
+  this.tank = tank - 1
+}
+
+const toyota = new Car('Lexus is300', 24);
+toyota.fill(12);
+toyota.fill(15);
+console.log(toyota.tank)
 
 
 /*
@@ -80,9 +131,26 @@ function Car() {
     - Besides the methods on Person.prototype, babies also have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, stomach, favoriteToy) {
+  Person.call(this, name, age, stomach);
+  this.favoriteToy = favoriteToy
 }
+Baby.prototype = Object.create(Person.prototype);//inherint parent (person)methods
+
+Baby.prototype.play = function () {
+  return `Playing with a ${this.favoriteToy}`
+};
+
+let ani = new Baby("Ki'ani", 3, [], 'iPad');
+
+console.log(ani.play());
+ani.eat('pizza');
+ani.poop()
+ani.eat('poi');
+ani.eat('lomi salmon');
+ani.eat('pipkaula');
+console.log(ani.stomach);
+console.log(ani.favoriteToy);
 
 
 /* 
